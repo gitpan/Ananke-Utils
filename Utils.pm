@@ -9,7 +9,7 @@
 package Ananke::Utils;
 use strict;
 
-my $VERSION = '1.0';
+our $VERSION = '1.0.1';
 
 sub getCookies {
 	# cookies are seperated by a semicolon and a space, this will split
@@ -58,7 +58,7 @@ sub replace_chars {
 	s/ñ/&ntilde;/g; s/ò/&ograve;/g; s/ó/&oacute;/g; s/ô/&ocirc;/g;
 	s/ã/&atilde;/g;
 	s/£/&pound;/g; s/§/&sect;/g; s/«/&laquo;/g; s/¥/&yen;/g;
-   s/¯/&macr;/g; s/»/&raquo;/g; s/×/&&times;/g; s/ð/&eth;/g;
+   s/¯/&macr;/g; s/»/&raquo;/g; s/×/&times;/g; s/ð/&eth;/g;
    s/¢/&cent;/g; s/¤/&curren;/g; s/¦/&brvbar;/g; s/¬/&not;/g;
    s/º/&ordm;/g; s/½/&frac12;/g; s/¼/&frac14;/g; s/¾/&frac34;/g;
    s/ª/&ordf;/g; s/´/&acute;/g; s/¶/&para;/g; s/·/&middot;/g;
@@ -66,6 +66,10 @@ sub replace_chars {
    s/¿/&iquest;/g; s/Ð/&ETH;/g; s/¨/&uml;/g; s/¡/&iexcl;/g;
    s/±/&plusmn;/g; 
 
+	s/!/&#33/g; s/@/&#64/g; s/\$/&#36/g; s/%/&#37/g;
+	s/\*/&#42/g; s/\(/&#40/g; s/\)/&#41/g;
+	s/\//&#47/g; s/\\/&#92/g;
+	
    return $_;
 
 }
@@ -82,7 +86,7 @@ sub getForm {
 
    $i = $r;
 
-   while ($i =~ s/^([a-zA-Z0-9-_\%\.\,\+]+)=([a-zA-Z0-9-_\@\%\.\,\+]+)?&?//sx) {
+   while ($i =~ s/^([a-zA-Z0-9-_\%\.\,\+]+)=([a-zA-Z0-9-_\*\@\%\.\,\+]+)?&?//sx) {
       $j[0] = $1;
       $j[1] = $2;
 
