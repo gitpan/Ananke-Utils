@@ -9,7 +9,8 @@
 package Ananke::Utils;
 use strict;
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
+$SIG{__WARN__} = sub { };
 
 sub getCookies {
 	# cookies are seperated by a semicolon and a space, this will split
@@ -64,11 +65,11 @@ sub replace_chars {
    s/ª/&ordf;/g; s/´/&acute;/g; s/¶/&para;/g; s/·/&middot;/g;
    s/¸/&cedil;/g; s/¹/&sup1;/g; s/÷/&divide;/g; s/³/&sup3;/g;
    s/¿/&iquest;/g; s/Ð/&ETH;/g; s/¨/&uml;/g; s/¡/&iexcl;/g;
-   s/±/&plusmn;/g; 
+   eval { s/±/&plusmn;/g;  };
 
-	s/!/&#33/g; s/@/&#64/g; s/\$/&#36/g; s/%/&#37/g;
-	s/\*/&#42/g; s/\(/&#40/g; s/\)/&#41/g;
-	s/\//&#47/g; s/\\/&#92/g;
+	s/!/&#33;/g; s/@/&#64;/g; s/\$/&#36;/g; s/%/&#37;/g;
+	s/\*/&#42;/g; s/\(/&#40;/g; s/\)/&#41;/g;
+	s/\//&#47;/g; s/\\/&#92;/g;
 	
    return $_;
 
@@ -217,7 +218,7 @@ Utility functions used to facility your life
 
 	http://web/this%20has%20spaces -> http://web/this has spaces'
 
-	$var = &Ananke::Utils::escape("http://web/this%20has%20spaces");
+	$var = &Ananke::Utils::unescape("http://web/this%20has%20spaces");
 
 =head2 clean(string)
 
